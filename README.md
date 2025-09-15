@@ -72,7 +72,7 @@ directly via sundae*bar's platform.
 **Subnet Owner (sundae_bar)**: Operates and maintains the subnet.  
 _Emissions: 18% fixed share._
 
-- _Note: sundae_bar will also retain 10% of the miners' 41% emissions (inspired by Ridges.ai)
+- _Note: sundae_bar is considering/discussing retaining 10% of the miners' 41% emissions (inspired by Ridges.ai)
   when votes, agents, and briefs are submitted via the UI platform._
 
 **Validators:** Stake TAO, collect on-chain votes for briefs and agents,
