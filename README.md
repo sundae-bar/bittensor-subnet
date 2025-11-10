@@ -1,301 +1,190 @@
 ![](./assets/logo_banner.jpg)
+### Incentivizing The Creation and Benchmarking of Commercial AI Agents
+---
 
-## INCENTIVIZING AI AGENTS WITH REAL-WORLD UTILITY AND MEASURABLE VALUE
+## Overview
 
-**Overview** Subnet 121 is an incentivised AI agent creation economy. Anyone is incentivised to submit a real-world problem as a brief, developers compete to build agents that solve it, and the community votes on the best agents. Together, these participants act as "miners," earning emissions based on their contributions, while validators aggregate votes and publish consensus.
+SN121 is an incentivised AI Agent creation and evaluation economy.
 
-This model draws from successful Bittensor efforts like SN62 - Ridges
-and SN77 - Liquidity. Ridges shows how to benchmark agents' work in
-tight verticals, and Liquidity how community voting + validator
-aggregation can be combined into a reliable weight-setting mechanism for
-Bittensor.​​ Subnet 121 builds on these ideas but prioritizes real-world
-briefs and agents, where humans vote on usefulness and validators
-normalize results into miner weights - ensuring sundae_bar's marketplace
-is backed by a proven, consensus-driven system while adapting it to
-human-verified AI utility (review Architecture section below to how this
-works incentive wise.)
+1. **Business owners** seeking to streamline part of their operations pay sundae_bar to create a brief outlining their real-world problem.
 
-_Please note, the supporting codebase will follow shortly, with release
-anticipated within the next month. We will release weekly updates on
-timing, we want to get code live as quickly as possible._
+2. **sundae_bar** determines brief cost and converts each problem into a structured technical brief displayed on the Developer Dashboard.
 
-## About sundae_bar x Subnet 121
+3. **Developers** (Bittensor miners) submit public code agents to SN121 validators. Miner emissions are rewarded slightly less than client brief cost.
 
-![](./assets/subnet121_plc.png)
+4. **Validators** benchmark Agents using the Agent Eval Test Suite (AETS). The top-performing agents earn emissions, with the highest-scoring agent delivered to the client for deployment.
 
-sundae_bar is building a consumer-facing AI agent marketplace. It is a
-curated hub of agents built by developers, usable by anyone. We\'re a
-publicly listed company (AIM: SBAR, listed June 3rd 2025) and version
-1.0 of our platform went live August 20th, 2025. Our goal is to be a
-fully decentralized marketplace that gives users access to the best
-agents regardless of origin.
+5. **sundae_bar’s Marketplace** hosts generalized versions of top-performing agents from each brief, where anyone can browse and rent them.
 
-In May 2025, sundae_bar successfully closed a £2 million fundraise ahead
-of its AIM listing, providing a strong capital base to accelerate
-development and growth. Together with existing resources, this provides
-a runway for operations, marketing, and platform scale-up. Additionally,
-as a publicly listed company, we have the ability to raise additional
-capital from institutional and retail investors.
 
-Subnet 121 was acquired in June 2025, reflecting management's belief in
-the opportunity to build at the intersection of AI and crypto. The
-acquisition accelerates our goal to build the leading AI agent
-marketplace. [We view Subnet 121 as the engine that powers this
-marketplace, creating a pipeline of high-utility agents that deliver
-measurable value. The marketplace itself supplies the fuel, providing
-the briefs, demand, and revenue that keep the engine running at full
-speed. By combining the open innovation of Bittensor with our
-enterprise-grade platform, we are building real-world AI products that
-businesses and individuals can use today. By design, Subnet 121 and the
-marketplace form a virtuous cycle: each creates value for the other,
-driving sustainable growth for the entire ecosystem.
+## About sundae_bar × SN121
 
-## Architecture: Phase One
+SN121 is owned and operated by Sundae Bar Plc (AIM: SBAR), a London-listed company. Launched in June 2025, sundae_bar operates a marketplace for AI agents, aimed at being the “Apple App Store for AI Agents that streamline business workflows.”
 
-![](./assets/subnet121_flow.png)
+Bespoke agents are commissioned and then a commercialized version of the final product is showcased on the sundae_bar marketplace for anyone to rent. In essence, this functions as both a software development studio and a SaaS marketplace all in one.
 
-**Brief Writers (Miners):** Anyone can post real-world business-related
-tasks/problems they want solved by an agent, submitted via sundae*bar's
-platform.  
-*Emissions: 15% of the miners' 41% emissions pool.\*
+SN121 powers this ecosystem as the creation, testing, and benchmarking layer for every custom-built agent before it reaches the marketplace, generating a recurring revenue stream to continually drive value back to subnet token holders.
 
-**Developers (Miners):** Traditional Bittensor miners, bBuild and submit
-agents against briefs.  
-\*Emissions: 60% of the miners' 41% emissions pool.
 
-**Community Voters (Miners):** Anyone holding Alpha can vote on the best
-briefs (to be advanced to developers) and on agents submitted against
-those briefs. All voters must hold ALPHA-121 and can participate
-directly via sundae*bar's platform.  
-*Emissions: 15% of the miners' 41% emissions pool.\*
+## Platform Roles
 
-**Subnet Owner (sundae_bar)**: Operates and maintains the subnet.  
-_Emissions: 18% fixed share._
+**sundae_bar Marketplace**: Agent Discovery, Distribution, Monetization
 
-- _Note: sundae_bar is considering/discussing retaining 10% of the miners' 41% emissions (inspired by Ridges.ai)
-  when votes, agents, and briefs are submitted via the UI platform._
+**SN121**: Agent Creation, Testing, Benchmarking 
 
-**Validators:** Stake TAO, collect on-chain votes for briefs and agents,
-normalize/aggregate results, and submit weights that determine miner
-payouts.  
-_Emissions: 41%._
+![Subnet Flow Graphic](./assets/subnet121_flowgraphic.jpg) 
 
-## On-Chain Components (Bittensor EVM Layer)
+## Economic Mechanism
 
-Subnet 121 uses a minimal set of contracts to anchor human activity
-on-chain. Most logic (scoring, consensus, weight-setting) happens
-off-chain with validators.
+Revenue and the associated buybacks generated from each brief act as the limiting factor to emissions paid out to miner-developers. This ensures that miner emissions will not be greater than the revenue generated for the brief. The differential between emissions and realized value is cycled back into the subnet liquidity pool, maintaining a self-balancing economic loop that ties real demand directly to miner rewards. 
 
-- **BriefRegistry** - Records new briefs, funding fees, and closures.
+### EXAMPLE: Economic Flow Example, Three Outcomes from One Client
+**Outcome 1:  Custom Agent Build: One-Time $5,000 USD Brief Fee**
 
-- **AgentRegistry** - Tracks agent submissions, safety checks, and marketplace listing.
+| Flow | % | Amount | Action |
+|------|---|--------|--------|
+| sundae_bar | 10% | $500 | Retained by sundae_bar for operations |
+| SN121 Pool | 90% | $4500 | Used to buy ALPHA (121) from the pool |
+| Miner | — | $3500 Equivalent in emissions | Miner emissions will be set to 70% of brief cost | 
 
-- **VoteModule** - Logs votes (or reveals) and slashing for abuse.
+*Max possible net TAO inflow/outflow: +$1000.* **More if miner chooses to not sell.*
 
-- **ConsensusModule** - Validators finalize results and set miner weights for Bittensor.
 
-- **RewardsModule** - Records rewards, claims, and emission burns.
 
-**Voting Flow:** Brief writers supply tasks, developers build agents,
-and community voters test them. Validators aggregate results and publish
-consensus so rewards flow fairly.
+**Outcome 2: Client Subscription: $500 USD per Month For Ongoing Use of Agent**
+| Flow | % | Amount | Action |
+|------|---|--------|--------|
+| sundae_bar | 10% | $50 | Retained by sundae_bar for operations |
+| SN121 Pool | 40% | $200 | Used to buy ALPHA (121) from the pool |
+| Miner | 50% | $250 | Fiat given to miner monthly |
 
-## Core Mechanics
+*Max possible net TAO inflow/outflow: +$200*
 
-**Brief Creation**
 
-- Brief Writer posts a brief via sundae_bar.
 
-- Brief includes success criteria, inputs/outputs, and privacy
-  constraints.
+**Outcome 3: Marketplace Rental: $700 USD per Month For Generalized Version of Agent**
+| Flow | % | Amount | Action |
+|------|---|--------|--------|
+| sundae_bar | 10% | $70 | Retained by sundae_bar for operations |
+| SN121 Pool | 40% | $280 | Used to buy ALPHA (121) from the pool |
+| Miner | 50% | $350 | Fiat given to miner monthly for agent use |
 
-- sundae_bar's native AI agent "Scout" automatically reviews each brief for spam, duplicates, and quality signals before it is posted for community voting.
+*Max possible net TAO inflow/outflow: +$280*
 
-**Brief Voting & Validation**
 
-- Community Voters have a set period (e.g., 48 hours) to vote on whether the brief should advance to Developers.
+**One Brief = net TAO inflow of $1480.00**
 
-- Validators aggregate community votes and publish consensus scores.
+## Launch and Automated Evaluation
 
-- Briefs that pass validation advance to Developers for development/submission.
+**Deliver a commercially viable and fully auditable testing framework, one where every brief doubles as a benchmark and every agent is openly verifiable.**
 
-**Agent Submission**
+1. **Client Briefs as Benchmarks:** Businesses (or individuals) pay sundae_bar to create an Agent. sundae_bar translates the client's specs into a brief that defines input/output expectations and success rubrics. Briefs are reviewed and refined with the support of a sundae_bar built agent to ensure they’re clearly scoped and aligned.
 
-- Developers have a set period (e.g., 14 days) to build/submit agents
-  (code or no-code) in response to approved briefs.
+2. **Agent Development:** Developers (“miners”) submit all agent code publicly. No closed source submissions. All submissions are archived and available for community reuse.
 
-- sundae_bar applies marketplace safety checks and sandboxing. Only then are agents accepted for community testing and validation.
+3. **Agent Eval Test Suite (AETS):** Each brief is converted into an AETS Spec: datasets + targets + rubric + graders.
 
-**Agent Voting & Validation**
+4. **Validator Execution:**
+   - Each rubric is executed multiple times per validator and across multiple validators.
+   - Runs use different random seeds and scenario variations to eliminate bias.
+   - Metrics are aggregated statistically into a single consensus performance score per agent.
 
-- Community Voters have a set period (e.g., 5 days) to run agents
-  against the brief and cast votes.
+5. **Compute:** Tests distributed across validators, with inference where specified on open models will run on Chutes where available.
 
-- Votes reflect binary pass/fail + confidence score (0--1). \*\*The early
-  phase relies on human truth-finding; later phases introduce automated benchmark suites per business verticals, i.e. sales, HR, marketing, finance, etc.\*
+6. **Rewards:** Agents ranked by aggregated score; top performer per brief earns emissions.
 
-- Validators aggregate community votes and publish consensus scores
-  which will determine which agents will be verified and be listed on sundae_bar.
+7. **Commercial Hosting:** sundae_bar deploys a market-ready version of winning agents to its marketplace, handling API hosting, tooling, and user access.
 
-- Everyone gets rewarded: Brief Writers, Developers, Community Voters, Validators.
+8. **Open Publication:** Once agents have been evaluated and scored, AETS specs are published publicly for reuse and improvement.
 
-**Publishing & Marketplace Usage**
 
-- Verified agents will be listed on sundae_bar for public use.
-  Developers will determine listing price (in FIAT to start) on sundae*bar.*\* sundae*bar will be equipped to accept and distribute payments once subnet is operational.*
+## Framework Compatibility and Open Ecosystem
 
-- On-platform revenue from agent sales will be split between Developers, Brief Writers, sundae*bar, and an Alpha buyback program. *\*Buyback program and on-platform revenue is split will be announced before the code is released.\_
+| Framework | Purpose |
+|------------|----------|
+| **Letta** | A flexible, open-source framework for building stateful, memory-enabled agents. Integrates seamlessly with AETS for evaluation. (Initial) |
+| **LangChain** | Tool-chaining and workflow orchestration. (Future) |
+| **AutoGen / CrewAI / LangGraph** | Multi-agent reasoning and collaboration frameworks. (Future) |
 
-## Security & Integrity
+sundae_bar is framework-agnostic: any agent can be listed and monetized through the platform. However, to ensure the best customer experience at launch, we will initially prioritize and reward agents built with Letta, which is compatible with the sundae_bar platform and integrates seamlessly with our benchmarking and hosting systems.
 
-**Anti-spam & Sybil resistance:** _Scout_ (sundae_bar's native AI agent)
-automatically reviews briefs for spam and duplicates. Community Brief
-Voting adds another quality filter. Identity checks and vote weighting
-by ALPHA-121 holdings reduce Sybil risk. A small TAO brief fee, rate
-limits, and slashing for fraudulent activity further deter abuse.
+Letta’s flexibility and open-source nature make it an ideal foundation for developers who want to build agents designed for measurable testing and commercial deployment.
 
-**Voting integrity:** Commit-reveal (TBD), duplicate-vote detection, and
-validator oversight ensure fair outcomes.
+We will continually expand our supported frameworks.
 
-**Sandboxing:** Agents run in controlled sandboxes, with red-team
-reviews applied to risky verticals before public exposure.
 
-**Validator health:** Uptime checks, attestation logs, and cross-checks
-against reference voters maintain validator reliability.
+## Technical Flow (5-Day Cycle)
 
-**Privacy:** Briefs should avoid sensitive data; where unavoidable,
-scoped credentials and zero-retention policies apply.
+1. **Brief Posted**
+   - Client defines success criteria and inputs with the assistance of an agent to ensure completeness before benchmarking.
+   - System auto-generates an AETS Spec (rubric + datasets + metrics).
 
-## Emissions
+2. **Agent Submission**
+   - Developers upload public code of agent within 5 days.
 
-**Miners (Brief Writers, Developers, Community Voters):** Receive 41% of
-emissions, allocated across agent submissions and community votes in
-proportion to verified brief matches × consensus confidence. Rewards
-scale with consensus scores.
+3. **Testing & Scoring**
+   - Validators run AETS multiple times per validator and across validators.
+   - Synthetic “customer” agents simulate scenarios; evaluator agents score outputs against the rubric.
 
-**Validators:** Receive 41% of emissions for securing the process,
-aggregating community votes, and publishing consensus scores for briefs
-and agents. Distribution is weighted by validator uptime and accuracy.
+4. **Aggregation & Ranking**
+   - Per-validator scores → statistical aggregation → consensus performance score.
 
-**Subnet Owner (sundae_bar):** Receives a fixed 18% share of emissions
-for operating and maintaining the subnet.
+5. **Reward & Commercial Hosting**
+   - Top Agents receive emissions. sundae_bar then hosts and monetizes a commercialised variant of the agents on its platform, enhancing it with developer tools, dashboards, and end-user access.
+   - All Agents added to the public agent library for reuse and improvement.
 
-**Burn:** 0% (initially minimized; may be reintroduced later).
 
-## Participants Table
+## What Is a Rubric and How It Works
 
-| Participant               | What they do                                                                        | How they earn                                                                                                                             |
-| ------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Brief Writer (Miner)      | Posts real-world tasks via sundae_bar; defines measurable success criteria          | Share of miners’ 41% emissions pool based on briefs that produce verified agents. Plus ongoing usage revenue via sundae_bar platform.     |
-| Developer (Miner)         | Builds agents that solve briefs; submits via SDK or no-code dashboard               | Share of miners’ 41% emissions pool proportional to consensus scores of their agents. Plus ongoing usage revenue via sundae_bar platform. |
-| Community Voter (Miner)   | Vote on briefs and tests agents against briefs; casts weighted votes (by ALPHA-121) | Share of miners’ 41% emissions pool, scaled by ALPHA × voting accuracy                                                                    |
-| Validator                 | Aggregates votes, finalizes consensus, sets weights                                 | Share of validators’ 41% emissions pool (equal split or uptime/accuracy-weighted)                                                         |
-| Subnet Owner (sundae_bar) | Operates subnet, maintains ecosystem                                                | Fixed 18% of emissions                                                                                                                    |
+A rubric is a structured scoring guide that turns qualitative expectations into quantitative metrics. It defines what success means and standardises agent evaluation.
 
-## **Emissions & Reward Modeling**
+**AETS rubrics include:**
+- Objectives – specific task goals.
+- Metrics – measurable indicators (e.g., accuracy, latency, completion %).
+- Weights – relative importance (∑ = 100 %).
+- Evaluation Methods – statistical checks, schema validation, LLM-based judging.
+- Pass/Fail Conditions – minimum thresholds for qualification.
 
-**Base Pools**
+Each validator runs the rubric multiple times and scores are aggregated network-wide to ensure consensus and robustness.
 
-| **Daily Emissions** | **Miners (41%)** | **Validators (41%)** | **Subnet Owner (18%)** |
-| ------------------- | ---------------- | -------------------- | ---------------------- |
-| 10 TAO              | 4.100            | 4.100                | 1.800                  |
-| 20 TAO              | 8.200            | 8.200                | 3.600                  |
 
-## **Worked Example (One Day)**
+**Example Scenario & Rubric**
 
-- **Briefs submitted:** 30
+**Brief:** Book a 30-min sales call with two of four prospects for a SaaS security product.  
+**Inputs:** ICP profile, product sheet, calendar API, CRM mock.  
+**Constraints:** ≤ 2 follow-ups, no double-bookings.
 
-- **Verified briefs (passed consensus):** 20
+| Metric | Weight | Evaluation Method |
+|---------|--------|------------------|
+| Task Completion | 40 % | Meetings booked × schema validated |
+| Compliance | 20 % | Guardrail adherence (log checks) |
+| Quality | 20 % | LLM judge – tone & personalisation |
+| Efficacy | 20 % | Simulated reply rates / objection handling |
 
-- **Developers:** 5
+**Result:** Agent C = 0.86 aggregate (after multi-validator aggregation) → rewarded; container and AETS spec published publicly.
 
-- **Voters:** 5
+---
 
-- **Brief Writers:** 10
+## Note to Community
 
-- **Validators:** 10 (equal split in this example)
+The goal with SN121 has always been to incentivize the creation of agents that deliver real-world value and are monetizable on the sundae_bar marketplace, while also driving value back to the subnet. Following further consultations with the community, we recognize that our initial model (released 09.15.25) had flaws that would have led to exploits, and ultimately non-viable agents on our marketplace, which is obviously not our goal and would be wasted capital. We see it as critical that our subnet output is profitable not just for the marketplace, but for the subnet too.
 
-Miner performance points = Verified matches × Consensus confidence
+Since then, our team has been in full regroup mode, creating a system that delivers commercially viable agents paired with objective and auditable validation. We will not lie; it’s proven to be our team's biggest challenge. Creating an exploit-proof validation mechanism for this subnet is a lot harder than we expected. Unlike many subnets where there’s already an existing benchmark or binary outcome to validate, evaluating the best agent for a real-world business need is very subjective.
 
-### **Developer Performance (agents across 20 briefs)**
+For example, if a business commissions sundae_bar to build an agent that replaces an administrative assistant and we deliver the perfect solution for that workflow, it likely will be unsuitable for another business in the same sector due to different processes and systems.
 
-| **Developer** | **Verified Matches** | **Avg Consensus Confidence** | **Points** |
-| ------------- | -------------------- | ---------------------------- | ---------- |
-| D1            | 6                    | 0.90                         | 5.40       |
-| D2            | 5                    | 0.85                         | 4.25       |
-| D3            | 4                    | 0.80                         | 3.20       |
-| D4            | 3                    | 0.75                         | 2.25       |
-| D5            | 2                    | 0.70                         | 1.40       |
-| **Total**     | 20                   | ---                          | **16.50**  |
+With all that said, we are very excited to share our new plan. It has been a brain twister, but we believe this is an innovative approach to solving the problem of creating custom agents for clients, and one that can set the standard for how AI agents are built, validated, and deployed. We have also expanded the development team to ensure this plan gets the focus and resources it deserves.
 
-### **Voter Performance**
+For us, this marks our V1 launch, built on the understanding that constant innovation and iteration are how we win. We’ve been able to repurpose much of our ongoing development to support this new direction and will keep everyone posted as we progress.
 
-| **Voter** | **ALPHA-121 held** | **Accuracy** | **Points** |
-| --------- | ------------------ | ------------ | ---------- |
-| V1        | 2,000              | 0.90         | 1,800      |
-| V2        | 500                | 0.70         | 350        |
-| V3        | 3,000              | 0.80         | 2,400      |
-| V4        | 1,500              | 0.95         | 1,425      |
-| V5        | 3,000              | 0.60         | 1,800      |
-| **Total** | 10,000             | ---          | **7,775**  |
 
-### **Brief Writer Performance**
+## Summary
 
-(Points based on number of verified agents their briefs produced)
+sundae_bar x SN121 creates a self-reinforcing loop where custom-built agents become reusable marketplace products, generating revenue that funds buybacks, creating positive TAO flow, unlocking greater emissions for new agent creation.
 
-| **Writer** | **Verified agents spawned** | **Points** |
-| ---------- | --------------------------- | ---------- |
-| W1         | 3                           | 3.0        |
-| W2         | 2                           | 2.0        |
-| W3         | 4                           | 4.0        |
-| W4         | 1                           | 1.0        |
-| W5         | 2                           | 2.0        |
-| W6--W10    | 8 total (avg \~1.6 each)    | 8.0        |
-| **Total**  | 20                          | **20.0**   |
+Each agent developed and tested via SN121 is open-sourced, leading to the open development of better agents and a learning environment where success is compounding for the new commodity of digital workers.
 
-### **Validator Rewards**
+![Subnet Value Graphic](./assets/subnet121_value.jpg)
 
-10 validators split **41% pool** equally in this example → each gets
-**0.82 TAO** if emissions = 20 TAO.
-
-## **Combined Miners' Pool Distribution (41% of emissions → 8.2 TAO)**
-
-- Total Miner Points = Developers (16.5) + Voters (7,775) + Writers (20)
-
-  > = 7,811.5
-
-- Each miner's payout = (points / 7,811.5) × 8.2 TAO
-
-Example:
-
-- D1 earns (5.40 / 7811.5) × 8.2 ≈ 0.0057 TAO
-
-- W3 earns (4.0 / 7811.5) × 8.2 ≈ 0.0042 TAO
-
-- V3 earns (2400 / 7811.5) × 8.2 ≈ 2.52 TAO
-
-**How to Participate**
-
-**Brief Writers** Go to sundae_bar → "Create Brief" → define inputs/outputs, success
-criteria, and constraints. Review delivered agents, tip contributors, or
-escalate to a paid brief.
-
-**Developers (Miners)** Code path: Use the SDK to register, fetch briefs, submit agents, and
-integrate validation hooks.  
-No-code path: Upload directly via the sundae_bar dashboard.
-
-**Community Voters (Miners)** Stake or hold ALPHA-121,vote on briefs, install the test harness, run
-agents against briefs, and vote through the UI (or CLI). Rewards scale
-with ALPHA × voting accuracy.
-
-**Validators** Stake TAO, run a validator node, ingest votes, publish consensus
-weights, and claim rewards. Accuracy and uptime SLAs may apply.
-
-**Subnet 121 is open to builders, voters, and validators who share our
-vision of aligning on-chain incentives with real-world AI utility. By
-participating, you help create an ecosystem where useful agents emerge,
-value flows fairly, and lasting impact is built in both TAO and equity.**
-
-_We look forward to working with you!_
 
 ![](./assets/logo_sn121.png)
