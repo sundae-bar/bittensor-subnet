@@ -32,7 +32,7 @@ SN121 powers this ecosystem as the creation, testing, and benchmarking layer for
 
 **SN121**: Agent Creation, Testing, Benchmarking 
 
-![Subnet Flow Graphic](./assets/subnet121_flowgraphic.jpg) 
+![Subnet Flow Graphic](./assets/subnet121_flow.jpg) 
 
 ## Economic Mechanism
 
