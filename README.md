@@ -70,7 +70,9 @@ Some SN121 validators **child-key to sundae_bar's scoring validator**. Because t
 
 **Rewards.** Emissions accrue to the miner who **holds #1**. This is winner-takes-all by **time at the top**, not a single payout at Challenge close. Holding the lead across more weight-setting cycles earns more alpha.
 
-The current share of validator weights assigned to the #1 miner is **40%**. The remainder is assigned to UID 0. sundae_bar reserves the right to change this percent at any time. For the live figure, review the weight extrinsics from our validator on [Taostats](https://taostats.io/validators/5EL9y2gdesAcPiPmoyFKABToiui3RkXewiKxdTMmes34ZdNf/rewards). Between Challenges, **100% of miner emissions are burned**: if you check that page while no Challenge is active, expect to see 100% assigned to UID 0. That is intended, not a misconfigured leaderboard.
+The share of validator weights assigned to the #1 miner is **50%**. sundae_bar takes a **platform fee of 20% of that share** (10% of emissions), paid to the platform's registered hotkey on SN121, so the #1 miner nets **40%** and the remaining 50% is assigned to UID 0. sundae_bar reserves the right to change these percentages at any time, and the brief of each Challenge states the split in force. For the live figure, review the weight extrinsics from our validator on [Taostats](https://taostats.io/validators/5EL9y2gdesAcPiPmoyFKABToiui3RkXewiKxdTMmes34ZdNf/rewards): three targets while a Challenge has a leader (the leader, the platform hotkey, UID 0). Between Challenges, **100% of miner emissions are burned**: if you check that page while no Challenge is active, expect to see 100% assigned to UID 0. That is intended, not a misconfigured leaderboard.
+
+**Which wallet gets paid.** Emissions go to the UID of the hotkey recorded on your submissions, and that is the **primary wallet** connected to your Lab account. Connect the hotkey that is registered on SN121 as your primary wallet, not a coldkey. A coldkey has no UID, so a lead held under one earns nothing.
 
 The full mechanics, from a score to alpha on your hotkey, are in [How Rewards are Earned on SN121 Skill Challenges](https://www.sundaebar.ai/news/how-rewards-are-earned-sn121).
 
@@ -115,7 +117,7 @@ SN121 runs **one Challenge at a time**, then the next. It is a rolling series of
 
 **1. Challenge released.** sundae_bar publishes a Challenge (brief + evaluation suite, including `suite.yaml`). Submissions open on the Lab. The suite is downloadable for audit.
 
-**2. Skill submission.** Miners may submit and iterate on bundles while the Challenge is open, subject to submission limits (see below). Each accepted submission is queued for evaluation.
+**2. Skill submission.** Miners may submit and iterate on bundles while the Challenge is open, subject to submission limits and the submission fee (see below). Each accepted submission is queued for evaluation.
 
 **3. Testing and scoring.** Validators evaluate submissions against the suite's scenarios and graders. The leaderboard updates as scores return. On-chain weights follow the current #1, so incentive starts accruing as soon as a miner takes the lead, and pays out from the next epoch.
 
@@ -132,8 +134,23 @@ There are two count caps and one set of size caps:
 - A **daily limit** (rolling 24-hour window).
 - A **per-Challenge limit** per hotkey for the life of that Challenge, currently **5 scored submissions**. A submission that is evaluated counts, whatever it scores; one that fails for an infrastructure reason on our side does not.
 - The **bundle size caps** in [What Miners Submit](#what-miners-submit).
+- A **submission fee** in TAO, paid per upload (see [Submission Fee](#submission-fee)).
 
 Exact numbers can change. We reserve the right to adjust them. When you submit, the Lab shows **how many submissions you have remaining** so you can track usage yourself.
+
+## Submission Fee
+
+Every submission pays a fee of **0.05 TAO**. The Lab submit dialog sends it from your connected wallet as a plain transfer to the sundae_bar fee wallet (the dialog shows the address and the amount), waits for the network to finalize the block, which usually takes under a minute, and then uploads your bundle with the transaction hash. The transfer must come from the hotkey your account uses or from the coldkey that owns it; a transfer from any other wallet is refused. The coordinator verifies the transfer on chain before the submission exists, and the scoring validator verifies it again before evaluating. Each transfer pays for one upload: a hash cannot be reused for a second one.
+
+**What the fee buys.** One evaluation. The fee is not a deposit on a score.
+
+- The evaluation ran and the result was low, or a pre-gate zeroed it: the fee is **spent**. That is the evaluation's verdict.
+- Your upload was refused after you paid (a similarity match, the resubmission cool-down, a storage error): the payment is **kept** and the dialog reuses it on your next attempt without asking your wallet again.
+- The evaluation failed on our side (evaluator unreachable or timed out, job lost, coordinator error, chain unreadable): the payment becomes a **credit**.
+
+**Credits.** A credit covers your next upload on **any** Challenge for **14 days** from the moment it was released. It is applied automatically: when you have one, the submit dialog skips the wallet step and says so. Credits, payments and their state are listed on the Lab wallet page under **Submission fees**, with a link to each transfer. An expired credit is history; no TAO is sent back in either direction.
+
+**Why a fee.** Each evaluation takes several minutes of a validator and a set of judge calls. A fee that a serious miner pays once per real attempt keeps the queue for miners who have built something, and keeps the leaderboard moving for everyone else.
 
 ## How an evaluation works
 
@@ -188,7 +205,16 @@ What they read is not a secret: **every file in the bundle**, SKILL.md and each 
 Weights are set the moment a miner takes #1; you can see that on the validator's [weight extrinsics](https://taostats.io/validators/5EL9y2gdesAcPiPmoyFKABToiui3RkXewiKxdTMmes34ZdNf/rewards). Emissions are paid at the subnet epoch, about every 72 minutes, so the first epoch after the first leader is set still pays the previous recipient, UID 0. If the extrinsic shows the leader and the explorer still shows a burn, wait one epoch.
 
 **How much do miners get?**
-The #1 miner receives **40%** of our validator's weight unless a Challenge brief says otherwise; the remainder goes to UID 0. Between Challenges it is 100% to UID 0. Taostats shows the live split.
+The #1 miner's share is **50%** of our validator's weight, of which the platform fee takes 20% (10% of emissions), so the leader nets **40%**; the rest goes to UID 0. A Challenge brief may state a different split. Between Challenges it is 100% to UID 0. Taostats shows the live split.
+
+**Why do I have to pay to submit?**
+Each upload is a full evaluation. The 0.05 TAO fee is there so the queue is made of real attempts. It is paid from your wallet in the submit dialog and verified on chain by the coordinator and by the validator. Details, including when it comes back, are in [Submission Fee](#submission-fee).
+
+**I paid and my upload was refused. Did I lose the fee?**
+No. The payment is kept and used on your next attempt; the dialog says so and will not ask your wallet again. If your evaluation failed on our side, the payment becomes a credit for 14 days on any Challenge, applied automatically, and listed on the Lab wallet page. A low or gated score is not refunded.
+
+**Which wallet should I connect?**
+The hotkey registered on SN121, as your primary wallet. Submissions are recorded under that address and emissions are paid to its UID. A coldkey has no UID. The fee transfer may come from the hotkey or from the coldkey that owns it.
 
 **What is a statistical tie?**
 Judges are LLMs, so the same skill scores slightly differently on each run. A new leader must beat the incumbent's best score by at least **0.01**. Inside that, the Lab marks the entry as a tie and the incumbent keeps #1. We added this after watching leadership flip on 0.002 differences, which moved emissions on noise.
