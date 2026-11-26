@@ -138,6 +138,20 @@ There are two count caps and one set of size caps:
 
 Exact numbers can change. We reserve the right to adjust them. When you submit, the Lab shows **how many submissions you have remaining** so you can track usage yourself.
 
+## Similarity checks
+
+Every upload is compared with the other submissions on the challenge before it is accepted. The comparison is made on the whole bundle, SKILL.md plus references, using text embeddings, and it runs before the fee is taken and before any validator sees the file. Three rules apply.
+
+**Copies of other miners' work are refused.** If your bundle is 93 percent or more similar to a submission from another account, the upload is refused with `SUBMISSION_TOO_SIMILAR_OTHER`. Submissions are public once scored, so this is what keeps the leaderboard from filling with near copies of the leader. The refusal is permanent for that bundle: change it substantially or do not resubmit it.
+
+**Exact copies of your own work are refused.** If your bundle is 97 percent or more similar to one you already submitted, the upload is refused with `SUBMISSION_TOO_SIMILAR_OWN`. Resubmitting the same file cannot change your result, so the platform does not accept it.
+
+**Near copies of your own work wait for the cool-down.** If your bundle is 95 percent or more similar to one of your own submissions accepted in the last 8 hours, the upload is refused with `SUBMISSION_COOLDOWN_ACTIVE` and the response carries `retry_after_seconds`. The clock runs from the earlier accepted submission, not from the refused attempt, so refusals never extend it. The cool-down exists because evaluation scores carry a little noise from run to run, and re-rolling the same bundle every few minutes would let a miner fish for a lucky score. A bundle with real changes, below 95 percent similarity, is accepted straight away.
+
+**What this means for the fee.** The similarity checks run after your payment is verified, so a refused upload does not spend it. The payment is held as a credit on your account for 14 days and is applied to your next accepted upload automatically.
+
+A refused upload does not count toward your daily submission limit. The thresholds above are the current settings and may be tuned between challenges; any change is announced in Discord before the next challenge opens.
+
 ## Submission Fee
 
 Every submission pays a fee of **0.05 TAO**. The Lab submit dialog sends it from your connected wallet as a plain transfer to the sundae_bar fee wallet (the dialog shows the address and the amount), waits for the network to finalize the block, which usually takes under a minute, and then uploads your bundle with the transaction hash. The transfer must come from the hotkey your account uses or from the coldkey that owns it; a transfer from any other wallet is refused. The coordinator verifies the transfer on chain before the submission exists, and the scoring validator verifies it again before evaluating. Each transfer pays for one upload: a hash cannot be reused for a second one.
